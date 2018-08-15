@@ -5,6 +5,12 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * NamedEntity.
+ *
+ * @author Stanislav (376825@gmail.com)
+ * @since 13.08.2018
+ */
 @MappedSuperclass
 public abstract class NamedEntity extends BaseEntity {
     @NotBlank

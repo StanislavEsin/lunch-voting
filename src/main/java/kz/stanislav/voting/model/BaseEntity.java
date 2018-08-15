@@ -5,18 +5,20 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+/**
+ * BaseEntity.
+ *
+ * @author Stanislav (376825@gmail.com)
+ * @since 13.08.2018
+ */
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class BaseEntity {
-    public static final int START_SEQ = 100000;
-
     @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
     protected BaseEntity() {
