@@ -1,4 +1,4 @@
-package kz.stanislav.voting.model;
+package kz.stanislav.voting.persistence.model;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Column;

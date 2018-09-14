@@ -1,12 +1,12 @@
-package kz.stanislav.voting.model;
+package kz.stanislav.voting.persistence.model;
 
-import org.hibernate.annotations.BatchSize;
-import org.springframework.util.CollectionUtils;
 import java.util.Collections;
 import java.util.Collection;
 import java.util.Set;
 import java.util.EnumSet;
 import javax.persistence.*;
+import org.hibernate.annotations.BatchSize;
+import org.springframework.util.CollectionUtils;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;

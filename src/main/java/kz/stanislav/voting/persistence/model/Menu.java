@@ -1,9 +1,9 @@
-package kz.stanislav.voting.model;
+package kz.stanislav.voting.persistence.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,7 +19,7 @@ public class Menu extends BaseEntity {
     @NotNull
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

@@ -1,9 +1,9 @@
-package kz.stanislav.voting.model;
+package kz.stanislav.voting.persistence.model;
 
 import java.time.LocalDate;
+import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,12 +19,12 @@ public class Vote extends BaseEntity {
     @NotNull
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull

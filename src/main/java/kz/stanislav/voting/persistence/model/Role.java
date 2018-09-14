@@ -1,4 +1,4 @@
-package kz.stanislav.voting.model;
+package kz.stanislav.voting.persistence.model;
 
 public enum Role {
     ROLE_USER,

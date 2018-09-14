@@ -1,9 +1,9 @@
-package kz.stanislav.voting.model;
+package kz.stanislav.voting.persistence.model;
 
+import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,7 +19,7 @@ public class Dish extends NamedEntity {
     @Range(min = 1)
     private Integer price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
