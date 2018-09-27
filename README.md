@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/StanislavEsin/lunch-voting.svg?branch=master)](https://travis-ci.org/StanislavEsin/lunch-voting)
+
 Voting system for deciding where to have lunch.
 ==================
 
