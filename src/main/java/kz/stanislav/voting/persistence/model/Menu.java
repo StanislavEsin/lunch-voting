@@ -1,17 +1,14 @@
 package kz.stanislav.voting.persistence.model;
 
-import javax.persistence.*;
+import kz.stanislav.voting.mark.View;
+import java.util.List;
 import java.time.LocalDate;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import javax.validation.constraints.NotNull;
 
-/**
- * Menu.
- *
- * @author Stanislav (376825@gmail.com)
- * @since 13.08.2018
- */
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "restaurant_id"}, name = "date_restaurant_idx")})
 public class Menu extends BaseEntity {
@@ -19,20 +16,29 @@ public class Menu extends BaseEntity {
     @NotNull
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
+    @NotNull(groups = View.Persist.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Restaurant restaurant;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<Dish> dishes;
 
     public Menu() {
     }
 
-    public Menu(@NotNull LocalDate date, @NotNull Restaurant restaurant) {
+    public Menu(LocalDate date) {
+        this(null, date, null);
+    }
+
+    public Menu(LocalDate date, Restaurant restaurant) {
         this(null, date, restaurant);
     }
 
-    public Menu(Integer id, @NotNull LocalDate date, @NotNull Restaurant restaurant) {
+    public Menu(Integer id, LocalDate date, Restaurant restaurant) {
         super(id);
         this.date = date;
         this.restaurant = restaurant;
@@ -54,12 +60,17 @@ public class Menu extends BaseEntity {
         this.restaurant = restaurant;
     }
 
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
                 "id=" + id +
                 ", date=" + date +
-                ", restaurant=" + restaurant.getId() +
+                ", restaurant=" + (restaurant != null ? restaurant.getId() : "") +
+                ", dishes=" + (dishes != null ? dishes : "") +
                 '}';
     }
 }

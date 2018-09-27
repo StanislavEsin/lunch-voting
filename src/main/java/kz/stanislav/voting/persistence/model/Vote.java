@@ -2,16 +2,10 @@ package kz.stanislav.voting.persistence.model;
 
 import java.time.LocalDate;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import javax.validation.constraints.NotNull;
 
-/**
- * Vote.
- *
- * @author Stanislav (376825@gmail.com)
- * @since 13.08.2018
- */
 @Entity
 @Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"date", "user_id"}, name = "date_user_idx")})
 public class Vote extends BaseEntity {
@@ -21,6 +15,7 @@ public class Vote extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private User user;
 
@@ -33,11 +28,11 @@ public class Vote extends BaseEntity {
     public Vote() {
     }
 
-    public Vote(@NotNull LocalDate date, @NotNull User user, @NotNull Restaurant restaurant) {
+    public Vote(LocalDate date, User user, Restaurant restaurant) {
         this(null, date, user, restaurant);
     }
 
-    public Vote(Integer id, @NotNull LocalDate date, @NotNull User user, @NotNull Restaurant restaurant) {
+    public Vote(Integer id, LocalDate date, User user, Restaurant restaurant) {
         super(id);
         this.date = date;
         this.user = user;
@@ -73,8 +68,8 @@ public class Vote extends BaseEntity {
         return "Vote{" +
                 "id=" + id +
                 ", date=" + date +
-                ", user=" + user.getId() +
-                ", restaurant=" + restaurant.getId() +
+                ", user=" + (user != null ? user.getId() : "") +
+                ", restaurant=" + (restaurant != null ? restaurant.getId() : "") +
                 '}';
     }
 }

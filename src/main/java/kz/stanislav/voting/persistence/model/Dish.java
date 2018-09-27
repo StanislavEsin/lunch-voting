@@ -1,38 +1,41 @@
 package kz.stanislav.voting.persistence.model;
 
+import kz.stanislav.voting.mark.View;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.validator.constraints.Range;
-import javax.validation.constraints.NotNull;
 
-/**
- * Dish.
- *
- * @author Stanislav (376825@gmail.com)
- * @since 13.08.2018
- */
 @Entity
-@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "price", "menu_id"}, name = "name_price_menu_idx")})
+@Table(name = "dishes", uniqueConstraints =
+        {@UniqueConstraint(columnNames = {"name", "price", "menu_id"}, name = "name_price_menu_idx")})
 public class Dish extends NamedEntity {
     @Column(name = "price", nullable = false)
     @Range(min = 1)
+    @NotNull
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "menu_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
+    @NotNull(groups = View.Persist.class)
+    @JsonIgnore
     private Menu menu;
 
     public Dish() {
     }
 
-    public Dish(String name, @Range(min = 1) Integer price, @NotNull Menu menu) {
+    public Dish(Dish dish) {
+        this(dish.getId(), dish.getName(), dish.getPrice(), dish.getMenu());
+    }
+
+    public Dish(String name, Integer price, Menu menu) {
         this(null, name, price, menu);
     }
 
-    public Dish(Integer id, String name, @Range(min = 1) Integer price, @NotNull Menu menu) {
+    public Dish(Integer id, String name, Integer price, Menu menu) {
         super(id, name);
         this.price = price;
         this.menu = menu;
@@ -60,7 +63,6 @@ public class Dish extends NamedEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", menu=" + menu.getId() +
                 '}';
     }
 }

@@ -12,16 +12,18 @@ ALTER TABLE restaurants ALTER COLUMN id RESTART WITH 1;
 ALTER TABLE users ALTER COLUMN id RESTART WITH 1;
 
 INSERT INTO users (id, name, email, password) VALUES
-  (100000, 'User', 'user@yandex.ru', 'password'),
-  (100001, 'Admin', 'admin@gmail.com', 'admin');
+  (100000, 'Admin', 'admin@gmail.com', '{noop}admin'),
+  (100001, 'UserOne', 'user_one@yandex.ru', '{noop}password'),
+  (100002, 'UserTwo', 'user_two@yandex.ru', '{noop}password');
 
 INSERT INTO user_roles (role, user_id) VALUES
+  ('ROLE_ADMIN', 100000),
   ('ROLE_USER', 100000),
-  ('ROLE_ADMIN', 100001),
-  ('ROLE_USER', 100001);
+  ('ROLE_USER', 100001),
+  ('ROLE_USER', 100002);
 
 INSERT INTO restaurants (id, name) VALUES
-  (100000, 'Манана'),
+  (100000, 'Manana'),
   (100001, 'Arcobaleno'),
   (100002, 'Cosmo');
 
@@ -39,5 +41,5 @@ INSERT INTO dishes (id, name, price, menu_id) VALUES
   (100010, 'Семга', 1400, 100005), (100011, 'Сок', 450, 100005);
 
 INSERT INTO vote (id, date, user_id, restaurant_id) VALUES
-  (100000, '2017-05-20', 100000, 100001), (100001, '2017-05-20', 100001, 100002),
-  (100002, '2018-07-13', 100000, 100002), (100003, '2018-07-13', 100001, 100002);
+  (100000, '2017-05-20', 100000, 100001), (100001, '2017-05-20', 100001, 100001), (100002, '2017-05-20', 100002, 100002),
+  (100003, '2018-08-14', 100000, 100002), (100004, '2018-08-14', 100001, 100002), (100005, '2018-08-14', 100002, 100002);

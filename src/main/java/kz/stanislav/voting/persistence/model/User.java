@@ -10,13 +10,8 @@ import org.springframework.util.CollectionUtils;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * User.
- *
- * @author Stanislav (376825@gmail.com)
- * @since 13.08.2018
- */
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "email_idx")})
 public class User extends NamedEntity {
@@ -29,6 +24,7 @@ public class User extends NamedEntity {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 100)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
@@ -42,6 +38,14 @@ public class User extends NamedEntity {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
+    }
+
+    public User(String name, String email, String password) {
+        this(null, name, email, password, true, Collections.EMPTY_SET);
     }
 
     public User(String name, String email, String password, Role role, Role... roles) {

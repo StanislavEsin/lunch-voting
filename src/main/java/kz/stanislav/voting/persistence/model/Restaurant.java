@@ -4,16 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-/**
- * Restaurant.
- *
- * @author Stanislav (376825@gmail.com)
- * @since 13.08.2018
- */
 @Entity
 @Table(name = "restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "name_idx")})
 public class Restaurant extends NamedEntity {
     public Restaurant() {
+    }
+
+    public Restaurant(Restaurant restaurant) {
+        super(restaurant.getId(), restaurant.getName());
     }
 
     public Restaurant(String name) {
