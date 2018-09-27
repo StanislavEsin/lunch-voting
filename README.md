@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/StanislavEsin/lunch-voting.svg?branch=master)](https://travis-ci.org/StanislavEsin/lunch-voting)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3f0f86e1699a41ebb9715321f6f170db)](https://www.codacy.com/app/StanislavEsin/lunch-voting?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=StanislavEsin/lunch-voting&amp;utm_campaign=Badge_Grade)
 
 Voting system for deciding where to have lunch.
 ==================
