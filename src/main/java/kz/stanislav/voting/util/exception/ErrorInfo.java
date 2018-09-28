@@ -10,4 +10,16 @@ public class ErrorInfo {
         this.type = type;
         this.details = details;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public ErrorType getType() {
+        return type;
+    }
+
+    public String[] getDetails() {
+        return details;
+    }
 }

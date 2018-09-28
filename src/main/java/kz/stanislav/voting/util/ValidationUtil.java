@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ValidationUtil {
-    public ValidationUtil() {
-    }
-
     public void checkNew(HasId bean) {
         if (!bean.isNew()) {
             throw new IllegalRequestDataException(bean + " must be new (id=null)");
@@ -40,7 +37,7 @@ public class ValidationUtil {
         Throwable result = t;
         Throwable cause;
 
-        while (null != (cause = result.getCause()) && (result != cause)) {
+        while ((cause = result.getCause()) != null && (!result.equals(cause))) {
             result = cause;
         }
         return result;
