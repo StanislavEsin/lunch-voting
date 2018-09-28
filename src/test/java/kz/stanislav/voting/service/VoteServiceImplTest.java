@@ -85,7 +85,7 @@ class VoteServiceImplTest {
 
         Vote result = voteService.vote(workingEnvironment, RESTAURANT1.getId(), USER_ONE.getId());
 
-        expected.setId(result.getId());
+        assertMatch(result, expected);
     }
 
     @Test
