@@ -28,7 +28,7 @@ class RestaurantRepositoryImplTest {
         TestUtil.initMockWorkingEnvironment(workingEnvironment, MENU2.getDate(), false);
 
         List<RestaurantDto> result = restaurantRepository.
-                getRestaurantDtoWithDishAndVote(workingEnvironment, USER_ONE.getId());
+                getRestaurantDtoWithDishAndVote(USER_ONE.getId());
 
 
         assertMatch(result, Arrays.asList(RESTAURANTDTO1, RESTAURANTDTO2, RESTAURANTDTO3));

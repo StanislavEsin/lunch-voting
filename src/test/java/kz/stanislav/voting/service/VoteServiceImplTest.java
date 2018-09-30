@@ -52,7 +52,7 @@ class VoteServiceImplTest {
         TestUtil.initMockWorkingEnvironment(workingEnvironment, VOTE2.getDate(), false);
 
         boolean result = voteService.
-                isVoted(workingEnvironment, RESTAURANT2.getId(), USER_ONE.getId());
+                isVoted(RESTAURANT2.getId(), USER_ONE.getId());
 
         assertMatch(result, true);
     }
@@ -62,7 +62,7 @@ class VoteServiceImplTest {
         TestUtil.initMockWorkingEnvironment(workingEnvironment, LocalDate.now(), false);
 
         boolean result = voteService.
-                isVoted(workingEnvironment, RESTAURANT2.getId(), USER_ONE.getId());
+                isVoted(RESTAURANT2.getId(), USER_ONE.getId());
 
         assertMatch(result, false);
     }
@@ -72,7 +72,7 @@ class VoteServiceImplTest {
         TestUtil.initMockWorkingEnvironment(workingEnvironment, LocalDate.now(), false);
         Vote expected = new Vote(LocalDate.now(), USER_ONE, RESTAURANT1);
 
-        Vote result = voteService.vote(workingEnvironment, RESTAURANT1.getId(), USER_ONE.getId());
+        Vote result = voteService.vote(RESTAURANT1.getId(), USER_ONE.getId());
         expected.setId(result.getId());
 
         assertMatch(result, expected);
@@ -83,7 +83,7 @@ class VoteServiceImplTest {
         TestUtil.initMockWorkingEnvironment(workingEnvironment, VOTE2.getDate(), false);
         Vote expected = new Vote(VOTE2.getId(), VOTE2.getDate(), VOTE2.getUser(), RESTAURANT1);
 
-        Vote result = voteService.vote(workingEnvironment, RESTAURANT1.getId(), USER_ONE.getId());
+        Vote result = voteService.vote(RESTAURANT1.getId(), USER_ONE.getId());
 
         assertMatch(result, expected);
     }
@@ -92,6 +92,6 @@ class VoteServiceImplTest {
     void testVoteRepeatVotingIsNotPossibleRepeatVoting() throws Exception {
         TestUtil.initMockWorkingEnvironment(workingEnvironment, VOTE6.getDate(), true);
         assertThrows(VoteRepeatException.class,
-                () -> voteService.vote(workingEnvironment, RESTAURANT1.getId(), USER_TWO.getId()));
+                () -> voteService.vote(RESTAURANT1.getId(), USER_TWO.getId()));
     }
 }

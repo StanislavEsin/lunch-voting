@@ -17,13 +17,15 @@ public class VoteServiceImpl implements VoteService {
     private final VoteRepository voteRepository;
     private final CrudRestaurantRepository restaurantRepository;
     private final UserRepository userRepository;
+    private final WorkingEnvironment workingEnvironment;
 
     @Autowired
     public VoteServiceImpl(VoteRepository voteRepository, CrudRestaurantRepository restaurantRepository,
-                           UserRepository userRepository) {
+                           UserRepository userRepository, WorkingEnvironment workingEnvironment) {
         this.voteRepository = voteRepository;
         this.restaurantRepository = restaurantRepository;
         this.userRepository = userRepository;
+        this.workingEnvironment = workingEnvironment;
     }
 
     @Override
@@ -42,14 +44,14 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Boolean isVoted(WorkingEnvironment workingEnvironment, Integer restaurantId, Integer userId) {
+    public Boolean isVoted(Integer restaurantId, Integer userId) {
         return voteRepository.
                 countByRestaurantIdAndUserIdAndDate(restaurantId, userId, workingEnvironment.getWorkingDate()) > 0;
     }
 
     @Override
     @Transactional
-    public Vote vote(WorkingEnvironment workingEnvironment, Integer restaurantId, Integer userId) {
+    public Vote vote(Integer restaurantId, Integer userId) {
         Optional<Vote> vote = voteRepository.findByUserIdAndDate(userId, workingEnvironment.getWorkingDate());
 
         return voteRepository.save(vote.map(v -> {

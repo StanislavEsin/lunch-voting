@@ -5,5 +5,5 @@ import kz.stanislav.voting.util.WorkingEnvironment;
 import java.util.List;
 
 public interface RestaurantRepository {
-    List<RestaurantDto> getRestaurantDtoWithDishAndVote(WorkingEnvironment workingEnvironment, int userId);
+    List<RestaurantDto> getRestaurantDtoWithDishAndVote(int userId);
 }

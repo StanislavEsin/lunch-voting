@@ -11,7 +11,7 @@ public interface VoteService {
 
     Integer getVotesCountForPeriod(Integer restaurantId, LocalDate startDate, LocalDate endDate);
 
-    Boolean isVoted(WorkingEnvironment workingEnvironment, Integer restaurantId, Integer userId);
+    Boolean isVoted(Integer restaurantId, Integer userId);
 
-    Vote vote(WorkingEnvironment workingEnvironment, Integer restaurantId, Integer userId);
+    Vote vote(Integer restaurantId, Integer userId);
 }

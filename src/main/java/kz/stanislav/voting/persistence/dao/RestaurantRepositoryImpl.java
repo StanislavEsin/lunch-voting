@@ -17,14 +17,17 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 @Repository
 public class RestaurantRepositoryImpl implements RestaurantRepository {
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final WorkingEnvironment workingEnvironment;
 
     @Autowired
-    public RestaurantRepositoryImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public RestaurantRepositoryImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate,
+                                    WorkingEnvironment workingEnvironment) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.workingEnvironment = workingEnvironment;
     }
 
     @Override
-    public List<RestaurantDto> getRestaurantDtoWithDishAndVote(WorkingEnvironment workingEnvironment, int userId) {
+    public List<RestaurantDto> getRestaurantDtoWithDishAndVote(int userId) {
         String sql = "SELECT r.id, r.name, md.dish_id, md.dish_name, md.price, vc.vote" +
                 " FROM public.restaurants AS r" +
                 " LEFT JOIN (SELECT m.id AS menu_id, m.restaurant_id, d.id AS dish_id, d.name AS dish_name, d.price" +
