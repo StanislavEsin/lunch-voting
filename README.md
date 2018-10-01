@@ -38,7 +38,6 @@ P.P.S.: Asume that your API will be used by a frontend developer to build fronte
   * Spring Data Access (JdbcTemplate, ORM, JPA (Hibernate), Transactions)
 - DBs: H2
 - RESTful services
-- SLF4J2
 - Spring Boot Starter Test / Spring Security Test / JUnit 5
 - Tomcat
 
